@@ -1,13 +1,13 @@
 Go ETL
 =======
 
-Go ETL using [Ratchet]("https://github.com/dailyburn/ratchet") pipelines
+Go ETL using [Ratchet](https://github.com/dailyburn/ratchet) pipelines
 
-# Start
+## Start
 
 `make start`
 
-# Configure
+## Configure
 
 To configure, edit ./config/config.yaml to load a new pipeline.
 
