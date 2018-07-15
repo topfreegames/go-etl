@@ -1,0 +1,7 @@
+workers:
+  - period: 10s
+    job:
+      name: hello-world
+  - period: 5s
+    job:
+      name: hey-world
