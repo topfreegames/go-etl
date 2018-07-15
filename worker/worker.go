@@ -22,17 +22,19 @@ func (w *Worker) Start(done chan struct{}) {
 		select {
 		case <-ticker.C:
 			log.Printf("executing job %s", w.Job.Name)
-			w.Job.Extract()
+			err := w.Job.Execute()
+			w.handleErr(err)
 		case <-done:
+			log.Print("terminating worker")
 			return
 		}
 	}
 }
 
-// func (w *Worker) handlerErr(err error) {
-// 	if err != nil {
-// 		log.Printf("job failed: %s", err.Error())
-// 	} else {
-// 		log.Print("executed job")
-// 	}
-// }
+func (w *Worker) handleErr(err error) {
+	if err != nil {
+		log.Printf("job failed: %s", err.Error())
+	} else {
+		log.Print("executed job")
+	}
+}
