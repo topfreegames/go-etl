@@ -1,7 +1,7 @@
 workers:
-  - period: 10s
-    job:
-      name: hello-world
-  # - period: 5s
+  # - period: 10s
   #   job:
-  #     name: hey-world
+  #     name: hello-world
+  - period: 5s
+    job:
+      name: http-requestor
