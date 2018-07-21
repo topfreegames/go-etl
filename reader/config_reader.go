@@ -13,11 +13,27 @@ func NewConfigReader() *ConfigReader {
 	return &ConfigReader{}
 }
 
-func (c *ConfigReader) Read() (worker.Workers, error) {
-	var workers []*worker.Worker
-	err := viper.UnmarshalKey("workers", &workers)
+func (c *ConfigReader) Read() (workers worker.Workers, err error) {
+	var specs []map[string]interface{}
+	err = viper.UnmarshalKey("workers", &specs)
 	if err != nil {
 		return nil, err
 	}
+
+	workers = make(worker.Workers, len(specs))
+	for idx, spec := range specs {
+		workers[idx], err = worker.NewWorker(spec)
+	}
+
+	err = viper.UnmarshalKey("workers", &workers)
+	if err != nil {
+		return nil, err
+	}
+
+	err = workers.Validate()
+	if err != nil {
+		return nil, err
+	}
+
 	return workers, nil
 }

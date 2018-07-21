@@ -13,7 +13,7 @@ import (
 
 // App starts all workers
 type App struct {
-	workers []*worker.Worker
+	workers []worker.Worker
 }
 
 var wg sync.WaitGroup
@@ -55,7 +55,7 @@ func (a *App) Start() {
 	a.wait(done)
 }
 
-func (a *App) startWorker(worker *worker.Worker, done chan struct{}) {
+func (a *App) startWorker(worker worker.Worker, done chan struct{}) {
 	worker.Start(done)
 	wg.Done()
 }

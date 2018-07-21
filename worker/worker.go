@@ -1,37 +1,61 @@
 package worker
 
 import (
+	"errors"
+	"fmt"
 	"log"
-	"time"
 
 	"github.com/Henrod/go-etl/models"
 )
 
-// Worker executes etl every period of time
-type Worker struct {
-	Period time.Duration
-	Job    *models.Job
+// Worker has a start method
+type Worker interface {
+	Start(done chan struct{})
+	GetJob() *models.Job
+	Validate() error
 }
 
-// Start runs the worker every period
-func (w *Worker) Start(done chan struct{}) {
-	ticker := time.NewTicker(w.Period)
-	defer ticker.Stop()
+// NewWorker returns a worker from spec
+func NewWorker(spec map[string]interface{}) (Worker, error) {
+	workers := map[string]func() Worker{
+		"period":   NewPeriodicWorker,
+		"schedule": NewScheduleWorker,
+	}
 
-	for {
-		select {
-		case <-ticker.C:
-			log.Printf("executing job %s", w.Job.Name)
-			err := w.Job.Execute()
-			w.handleErr(err)
-		case <-done:
-			log.Print("terminating worker")
-			return
+	var ctor func() Worker
+
+	for name, workerCtor := range workers {
+		if _, ok := spec[name]; ok {
+			if ctor != nil {
+				return nil, errors.New("must have only one worker type")
+			}
+			ctor = workerCtor
 		}
 	}
+
+	if ctor == nil {
+		return nil, errors.New("worker has no type")
+	}
+
+	return ctor(), nil
 }
 
-func (w *Worker) handleErr(err error) {
+func getWorkerType(spec map[string]interface{}, types []string) (string, error) {
+	containedKey := ""
+
+	for _, key := range types {
+		if _, ok := spec[key]; ok {
+			if len(containedKey) > 0 {
+				return "", fmt.Errorf(
+					"worker spec has two types: %s and %s", containedKey, key)
+			}
+		}
+	}
+
+	return containedKey, nil
+}
+
+func handleErr(err error) {
 	if err != nil {
 		log.Printf("job failed: %s", err.Error())
 	} else {
