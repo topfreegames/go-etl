@@ -2,10 +2,55 @@
 
 
 [[projects]]
+  name = "github.com/aws/aws-sdk-go"
+  packages = [
+    "aws",
+    "aws/awserr",
+    "aws/awsutil",
+    "aws/client",
+    "aws/client/metadata",
+    "aws/credentials",
+    "aws/endpoints",
+    "aws/request",
+    "aws/signer/v4",
+    "internal/sdkio",
+    "internal/sdkrand",
+    "internal/shareddefaults",
+    "private/protocol",
+    "private/protocol/eventstream",
+    "private/protocol/eventstream/eventstreamapi",
+    "private/protocol/query",
+    "private/protocol/query/queryutil",
+    "private/protocol/rest",
+    "private/protocol/restxml",
+    "private/protocol/xml/xmlutil",
+    "service/s3"
+  ]
+  revision = "bc3f534c19ffdf835e524e11f0f825b3eaf541c3"
+  version = "v1.14.31"
+
+[[projects]]
+  name = "github.com/dailyburn/ratchet"
+  packages = [
+    ".",
+    "data",
+    "logger",
+    "util"
+  ]
+  revision = "c59e9699e8ab6428756dfa20953097b11bde9334"
+  version = "20160217.1419"
+
+[[projects]]
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
   revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
   version = "v1.4.7"
+
+[[projects]]
+  name = "github.com/go-ini/ini"
+  packages = ["."]
+  revision = "358ee7663966325963d4e8b2e1fbd570c5195153"
+  version = "v1.38.1"
 
 [[projects]]
   branch = "master"
@@ -31,6 +76,17 @@
   version = "v1.0"
 
 [[projects]]
+  name = "github.com/jmespath/go-jmespath"
+  packages = ["."]
+  revision = "0b12d6b5"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/kisielk/sqlstruct"
+  packages = ["."]
+  revision = "648daed35d49dac24a4bff253b190a80da3ab6a5"
+
+[[projects]]
   name = "github.com/magiconair/properties"
   packages = ["."]
   revision = "c2353362d570a7bfa228149c62842019201cfb71"
@@ -53,6 +109,21 @@
   packages = ["."]
   revision = "c01d1270ff3e442a8a57cddc1c92dc1138598194"
   version = "v1.2.0"
+
+[[projects]]
+  name = "github.com/sendgrid/rest"
+  packages = ["."]
+  revision = "306b9bef57dc36f3435ccfcc08fe6ae2c6920344"
+  version = "v2.4.1"
+
+[[projects]]
+  name = "github.com/sendgrid/sendgrid-go"
+  packages = [
+    ".",
+    "helpers/mail"
+  ]
+  revision = "8caf17aa96b4a98bae8bd216878dd50ff12897b5"
+  version = "v3.4.1"
 
 [[projects]]
   name = "github.com/spf13/afero"
@@ -121,6 +192,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "79024c3d35c68aa3c86540372e0f702b5ce43d95db09adf2880ff8b5c1f78295"
+  inputs-digest = "2cb19fb1703592683aeabcb2a6ee23f92571957db608281221b8b68237b5725c"
   solver-name = "gps-cdcl"
   solver-version = 1

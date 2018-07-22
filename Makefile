@@ -5,3 +5,6 @@ plugins:
 
 start:
 	@go run main.go start
+
+setup:
+	@dep ensure

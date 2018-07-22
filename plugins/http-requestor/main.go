@@ -12,11 +12,11 @@ func (e etl) Extract() ratchet.DataProcessor {
 }
 
 func (e etl) Transform() ratchet.DataProcessor {
-	return &Transformer{}
+	return &processors.Logger{}
 }
 
 func (e etl) Load() ratchet.DataProcessor {
-	return &Loader{}
+	return &processors.Null{}
 }
 
 // ETL is the exported symbol of this plugin
