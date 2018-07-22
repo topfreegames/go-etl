@@ -12,3 +12,55 @@ Go ETL using [Ratchet](https://github.com/dailyburn/ratchet) pipelines
 To configure, edit ./config/config.yaml to load a new pipeline.
 
 To add a custom ETL, create a new plugin on ./plugins and add is on config.yaml.
+
+## Example
+
+Create a new ETL:
+
+1) Create a new plugin on ./plugins like this: 
+```golang
+// ./plugins/http-requestor/main.go
+
+package main
+
+import (
+	"github.com/Henrod/go-etl/processors"
+	"github.com/dailyburn/ratchet"
+)
+
+type etl string
+
+func (e etl) Extract() ratchet.DataProcessor {
+	return processors.NewHTTPRequestor("GET", "http://localhost:8080")
+}
+
+func (e etl) Transform() ratchet.DataProcessor {
+	return &processors.Logger{}
+}
+
+func (e etl) Load() ratchet.DataProcessor {
+	return &processors.Null{}
+}
+
+// ETL is the exported symbol of this plugin
+var ETL etl
+```
+
+2) Build the plugin binary:
+
+```bash
+make plugins
+```
+
+3) Add on config/config.yaml:
+```yaml
+workers:
+  - period: 1h
+    job:
+      name: http-requestor
+```
+
+4) Start:
+```bash
+make start
+```
