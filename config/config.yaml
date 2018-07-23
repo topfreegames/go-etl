@@ -1,9 +1,33 @@
 workers:
   - period: 10s
     job:
-      name: hello-world
+      name: http-requestor
+      code: |
+        package main
+
+        import (
+          "github.com/Henrod/go-etl/processors"
+          "github.com/dailyburn/ratchet"
+        )
+
+        type etl string
+
+        func (e etl) Extract() ratchet.DataProcessor {
+          return processors.NewHTTPRequestor("GET", "http://localhost:8080")
+        }
+
+        func (e etl) Transform() ratchet.DataProcessor {
+          return &processors.Logger{}
+        }
+
+        func (e etl) Load() ratchet.DataProcessor {
+          return &processors.Null{}
+        }
+
+        // ETL is the exported symbol of this plugin
+        var ETL etl
   - schedule:
       hour: 17
       minute: 29
     job:
-      name: http-requestor
+      name: hello-world
