@@ -13,9 +13,50 @@ To configure, edit ./config/config.yaml to load a new pipeline.
 
 To add a custom ETL, create a new plugin on ./plugins and add is on config.yaml.
 
-## Example
+## Examples
 
-Create a new ETL:
+### Add an ETL code on config.yaml
+
+1) Add on config/config.yaml:
+```yaml
+workers:
+  - schedule:
+      hour: 20
+      minute: 0
+    job:
+      name: http-requestor
+      code: |
+        package main
+
+        import (
+          "github.com/Henrod/go-etl/processors"
+          "github.com/dailyburn/ratchet"
+        )
+
+        type etl string
+
+        func (e etl) Extract() ratchet.DataProcessor {
+          return processors.NewHTTPRequestor("GET", "http://localhost:8080")
+        }
+
+        func (e etl) Transform() ratchet.DataProcessor {
+          return &processors.Logger{}
+        }
+
+        func (e etl) Load() ratchet.DataProcessor {
+          return &processors.Null{}
+        }
+
+        // ETL is the exported symbol of this plugin
+        var ETL etl
+```
+
+2) Start:
+```bash
+make start
+```
+
+### Create a new ETL plugin
 
 1) Create a new plugin on ./plugins like this: 
 ```golang
