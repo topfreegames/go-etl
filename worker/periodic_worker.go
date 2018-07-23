@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/Henrod/go-etl/models"
+	"github.com/topfreegames/go-etl/models"
 )
 
 // PeriodicWorker executes etl every period of time

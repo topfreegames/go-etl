@@ -17,8 +17,8 @@ package cmd
 import (
 	"log"
 
-	"github.com/Henrod/go-etl/app"
-	"github.com/Henrod/go-etl/reader"
+	"github.com/topfreegames/go-etl/app"
+	"github.com/topfreegames/go-etl/reader"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Henrod/go-etl/processors"
+	"github.com/topfreegames/go-etl/processors"
 	"github.com/dailyburn/ratchet"
 )
 

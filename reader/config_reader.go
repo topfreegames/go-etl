@@ -1,7 +1,7 @@
 package reader
 
 import (
-	"github.com/Henrod/go-etl/worker"
+	"github.com/topfreegames/go-etl/worker"
 	"github.com/spf13/viper"
 )
 

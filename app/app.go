@@ -7,8 +7,8 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/Henrod/go-etl/reader"
-	"github.com/Henrod/go-etl/worker"
+	"github.com/topfreegames/go-etl/reader"
+	"github.com/topfreegames/go-etl/worker"
 )
 
 // App starts all workers

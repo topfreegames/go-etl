@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Henrod/go-etl/models"
+	"github.com/topfreegames/go-etl/models"
 )
 
 // Worker has a start method

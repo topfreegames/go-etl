@@ -14,7 +14,7 @@
 
 package main
 
-import "github.com/Henrod/go-etl/cmd"
+import "github.com/topfreegames/go-etl/cmd"
 
 func main() {
 	cmd.Execute()
