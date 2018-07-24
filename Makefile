@@ -8,3 +8,6 @@ start:
 
 setup:
 	@dep ensure
+
+image:
+	@docker build -t local/go-etl .
