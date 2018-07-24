@@ -9,5 +9,9 @@ start:
 setup:
 	@dep ensure
 
+TAG := latest
 image:
-	@docker build -t local/go-etl .
+	@docker build -t tfgco/go-etl:$(TAG) .
+
+push-image:
+	@docker push tfgco/go-etl:$(TAG)
