@@ -105,3 +105,11 @@ workers:
 ```bash
 make start
 ```
+
+# Next steps
+
+- [ ] Better logging
+- [ ] Some shared memory (maybe redis?) to allow replication and not execute job twice
+- [ ] Not crash application when wrong script (not found or code that doesn't compile)
+- [ ] Unit tests
+- [ ] Integration tests
