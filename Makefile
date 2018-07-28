@@ -15,3 +15,6 @@ image:
 
 push-image:
 	@docker push tfgco/go-etl:$(TAG)
+
+plugins-linux:
+	@find plugins -type d -path 'plugins/*' -maxdepth 1 -exec sh -c "ls {}/*.go | xargs go build -buildmode=plugin -o {}/main.so" \;

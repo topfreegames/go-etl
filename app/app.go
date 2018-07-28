@@ -29,16 +29,19 @@ func NewApp(reader reader.Reader) (*App, error) {
 }
 
 func (a *App) configure(reader reader.Reader) error {
+	log.Print("reading config")
 	workers, err := reader.Read()
 	if err != nil {
 		return err
 	}
 
+	log.Print("configuring worker")
 	err = workers.Configure()
 	if err != nil {
 		return err
 	}
 
+	log.Print("success on worker")
 	a.workers = workers
 	return nil
 }

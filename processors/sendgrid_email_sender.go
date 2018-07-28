@@ -10,11 +10,25 @@ import (
 )
 
 // SendgridEmailSender is a DataProcessor that sends email via Sendgrid
-type SendgridEmailSender struct{}
+type SendgridEmailSender struct {
+	FromName  string
+	FromEmail string
+	ToName    string
+	ToEmail   string
+	Subject   string
+}
 
 // NewSendgridEmailSender returns a new *SendgridEmailSender
-func NewSendgridEmailSender() *SendgridEmailSender {
-	return &SendgridEmailSender{}
+func NewSendgridEmailSender(
+	fromName, fromEmail, toName, toEmail, subject string,
+) *SendgridEmailSender {
+	return &SendgridEmailSender{
+		FromName:  fromName,
+		FromEmail: fromEmail,
+		ToName:    toName,
+		ToEmail:   toEmail,
+		Subject:   subject,
+	}
 }
 
 // ProcessData implementation
@@ -22,12 +36,16 @@ func (s *SendgridEmailSender) ProcessData(
 	d data.JSON, outputChan chan data.JSON,
 	killChan chan error,
 ) {
+	if len(d) == 0 {
+		return
+	}
+
 	var (
-		from             = mail.NewEmail("Example", "test@example.com")
-		subject          = "Daily Report"
-		to               = mail.NewEmail("Example", "test@example.com")
-		plainTextContent = "easy to do anywhere, even with Go"
-		htmlContent      = "<strong>easy to do anywhere, even with Go</strong>"
+		from             = mail.NewEmail(s.FromName, s.FromEmail)
+		subject          = s.Subject
+		to               = mail.NewEmail(s.ToName, s.ToEmail)
+		plainTextContent = string(d)
+		htmlContent      = string(d)
 
 		message = mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
 		client  = sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
