@@ -21,7 +21,7 @@ To add a custom ETL, create a new plugin on ./plugins and add is on config.yaml.
 ```yaml
 workers:
   - schedule:
-      hour: 20
+      hour: 20 # UTC time
       minute: 0
     job:
       name: http-requestor

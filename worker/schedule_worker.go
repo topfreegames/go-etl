@@ -47,11 +47,11 @@ func (s *ScheduleWorker) Start(done chan struct{}) {
 }
 
 func (s *ScheduleWorker) tick() <-chan time.Time {
-	now := time.Now()
+	now := time.Now().UTC()
 	nextSchedule := time.Date(
 		now.Year(), now.Month(), now.Day(),
 		s.Schedule.Hour, s.Schedule.Minute, 0, 0,
-		now.Location())
+		time.UTC)
 
 	if now.After(nextSchedule) {
 		nextSchedule = nextSchedule.AddDate(0, 0, 1)
