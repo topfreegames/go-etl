@@ -16,9 +16,7 @@ type ScheduleWorker struct {
 
 // NewScheduleWorker returns an ScheduleWorker
 func NewScheduleWorker() Worker {
-	return &ScheduleWorker{
-		timer: time.NewTimer(1 * time.Second),
-	}
+	return &ScheduleWorker{}
 }
 
 // GetJob returns the job
@@ -58,7 +56,15 @@ func (s *ScheduleWorker) tick() <-chan time.Time {
 	}
 
 	duration := nextSchedule.Sub(now)
-	s.timer.Reset(duration)
+
+	if s.timer == nil {
+		s.timer = time.NewTimer(duration)
+	} else {
+		s.timer.Stop()
+		s.timer.Reset(duration)
+	}
+
+	log.Printf("next job will run in %s", duration.String())
 
 	return s.timer.C
 }
