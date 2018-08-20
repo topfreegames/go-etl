@@ -38,7 +38,10 @@ func (p *PeriodicWorker) Start(done chan struct{}) {
 	ticker := time.NewTicker(p.Period)
 	defer ticker.Stop()
 
+	log.Printf("starting job %s", p.Job.Name)
+
 	for {
+		log.Printf("waiting for next period: period %s, job %s", p.Period.String(), p.Job.Name)
 		select {
 		case <-ticker.C:
 			log.Printf("executing job %s", p.Job.Name)
