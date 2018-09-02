@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/dailyburn/ratchet/data"
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
+	"github.com/topfreegames/go-etl/models"
 )
 
 // SendgridEmailSender is a DataProcessor that sends email via Sendgrid
@@ -33,7 +33,7 @@ func NewSendgridEmailSender(
 
 // ProcessData implementation
 func (s *SendgridEmailSender) ProcessData(
-	d data.JSON, outputChan chan data.JSON,
+	d models.Data, outputChan chan models.Data,
 	killChan chan error,
 ) {
 	if len(d) == 0 {
@@ -63,8 +63,5 @@ func (s *SendgridEmailSender) ProcessData(
 		return
 	}
 
-	outputChan <- data.JSON(bts)
+	outputChan <- models.Data(bts)
 }
-
-// Finish implementation
-func (s *SendgridEmailSender) Finish(outputChan chan data.JSON, killChan chan error) {}

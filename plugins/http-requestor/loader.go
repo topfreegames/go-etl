@@ -4,17 +4,14 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/dailyburn/ratchet/data"
+	"github.com/topfreegames/go-etl/models"
 )
 
 // Loader implements ratchet.DataProcessor
 type Loader struct{}
 
 // ProcessData implementation
-func (l *Loader) ProcessData(d data.JSON, outputChan chan data.JSON, killChan chan error) {
+func (l *Loader) ProcessData(d models.Data, outputChan chan models.Data, killChan chan error) {
 	log.Print("executing loader")
 	fmt.Printf("loader: %s\n", string(d))
 }
-
-// Finish implementation
-func (l *Loader) Finish(outputChan chan data.JSON, killChan chan error) {}

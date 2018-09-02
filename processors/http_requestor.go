@@ -1,11 +1,11 @@
 package processors
 
 import (
+	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 
-	"github.com/dailyburn/ratchet/data"
+	"github.com/topfreegames/go-etl/models"
 )
 
 // HTTPRequestor is a DataProcessor that makes a HTTP request
@@ -19,8 +19,8 @@ func NewHTTPRequestor(method, url string) *HTTPRequestor {
 }
 
 // ProcessData implementation
-func (h *HTTPRequestor) ProcessData(d data.JSON, outputChan chan data.JSON, killChan chan error) {
-	log.Print("calling http requestor process")
+func (h *HTTPRequestor) ProcessData(d models.Data, outputChan chan models.Data, killChan chan error) {
+	fmt.Println("calling http requestor process")
 
 	req, err := http.NewRequest(h.method, h.url, nil)
 	if err != nil {
@@ -44,6 +44,3 @@ func (h *HTTPRequestor) ProcessData(d data.JSON, outputChan chan data.JSON, kill
 
 	outputChan <- bts
 }
-
-// Finish implementation
-func (h *HTTPRequestor) Finish(outputChan chan data.JSON, killChan chan error) {}

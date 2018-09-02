@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"net/smtp"
 
-	"github.com/dailyburn/ratchet/data"
+	"github.com/topfreegames/go-etl/models"
 )
 
 // EmailSender is a DataProcessor that sends email
@@ -14,7 +14,7 @@ type EmailSender struct {
 }
 
 // ProcessData implementation
-func (e *EmailSender) ProcessData(d data.JSON, outputChan chan data.JSON, killChan chan error) {
+func (e *EmailSender) ProcessData(d models.Data, outputChan chan models.Data, killChan chan error) {
 	c, err := smtp.Dial(e.smtpServer)
 	if err != nil {
 		killChan <- err
@@ -38,6 +38,3 @@ func (e *EmailSender) ProcessData(d data.JSON, outputChan chan data.JSON, killCh
 		return
 	}
 }
-
-// Finish implementation
-func (e *EmailSender) Finish(outputChan chan data.JSON, killChan chan error) {}

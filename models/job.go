@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"os"
 	"plugin"
-
-	"github.com/dailyburn/ratchet"
 )
 
 // Job has the ETL description
@@ -61,7 +59,7 @@ func (j *Job) configurePlugin(path string) error {
 
 // Execute ...
 func (j *Job) Execute() error {
-	pipeline := ratchet.NewPipeline(
+	pipeline := NewPipeline(
 		j.etl.Extract(),
 		j.etl.Transform(),
 		j.etl.Load(),
