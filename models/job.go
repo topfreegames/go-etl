@@ -16,7 +16,6 @@ type Job struct {
 }
 
 // Configure loads the job plugin
-// TODO: do polymorphism the same way as worker
 func (j *Job) Configure() error {
 	if j.Code == "" {
 		return j.configurePlugin("plugins")

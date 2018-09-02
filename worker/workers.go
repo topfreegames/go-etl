@@ -1,17 +1,26 @@
 package worker
 
+import "log"
+
 // Workers is an array of workers
 type Workers []Worker
 
 // Configure configures workers
-func (w Workers) Configure() error {
+func (w Workers) Configure() Workers {
+	correctWorkers := Workers{}
+
 	for _, worker := range w {
 		err := worker.GetJob().Configure()
 		if err != nil {
-			return err
+			name := worker.GetJob().Name
+			msg := err.Error()
+			log.Printf("failed to configure job %s: %s", name, msg)
+		} else {
+			correctWorkers = append(correctWorkers, worker)
 		}
 	}
-	return nil
+
+	return correctWorkers
 }
 
 // Validate validates all workers in worker

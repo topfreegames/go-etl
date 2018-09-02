@@ -36,10 +36,7 @@ func (a *App) configure(reader reader.Reader) error {
 	}
 
 	log.Print("configuring worker")
-	err = workers.Configure()
-	if err != nil {
-		return err
-	}
+	workers = workers.Configure()
 
 	log.Print("success on worker")
 	a.workers = workers

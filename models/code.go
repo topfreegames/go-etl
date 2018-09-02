@@ -34,10 +34,14 @@ func (c Code) Configure(name string) error {
 		return err
 	}
 
-	return exec.Command(
+	cmd := exec.Command(
 		"go", "build",
 		"-buildmode", "plugin",
 		"-o", c.pluginPath(name),
-		c.filePath(name),
-	).Run()
+		c.filePath(name))
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	return cmd.Run()
 }
