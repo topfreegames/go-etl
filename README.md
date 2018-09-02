@@ -1,7 +1,7 @@
 Go ETL
 =======
 
-Go ETL using [Ratchet](https://github.com/dailyburn/ratchet) pipelines
+Go ETL using pipelines
 
 ## Start
 
@@ -30,20 +30,20 @@ workers:
 
         import (
           "github.com/topfreegames/go-etl/processors"
-          "github.com/dailyburn/ratchet"
+          "github.com/topfreegames/go-etl/models"
         )
 
         type etl string
 
-        func (e etl) Extract() ratchet.DataProcessor {
+        func (e etl) Extract() models.DataProcessor {
           return processors.NewHTTPRequestor("GET", "http://localhost:8080")
         }
 
-        func (e etl) Transform() ratchet.DataProcessor {
+        func (e etl) Transform() models.DataProcessor {
           return &processors.Logger{}
         }
 
-        func (e etl) Load() ratchet.DataProcessor {
+        func (e etl) Load() models.DataProcessor {
           return &processors.Null{}
         }
 
@@ -66,20 +66,20 @@ package main
 
 import (
 	"github.com/topfreegames/go-etl/processors"
-	"github.com/dailyburn/ratchet"
+	"github.com/topfreegames/go-etl/models"
 )
 
 type etl string
 
-func (e etl) Extract() ratchet.DataProcessor {
+func (e etl) Extract() models.DataProcessor {
 	return processors.NewHTTPRequestor("GET", "http://localhost:8080")
 }
 
-func (e etl) Transform() ratchet.DataProcessor {
+func (e etl) Transform() models.DataProcessor {
 	return &processors.Logger{}
 }
 
-func (e etl) Load() ratchet.DataProcessor {
+func (e etl) Load() models.DataProcessor {
 	return &processors.Null{}
 }
 
@@ -110,6 +110,6 @@ make start
 
 - [ ] Better logging
 - [ ] Some shared memory (maybe redis?) to allow replication and not execute job twice
-- [ ] Not crash application when wrong script (not found or code that doesn't compile)
+- [X] Not crash application when wrong script (not found or code that doesn't compile)
 - [ ] Unit tests
 - [ ] Integration tests

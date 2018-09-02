@@ -6,7 +6,7 @@ import (
 	"github.com/topfreegames/go-etl/models"
 )
 
-// Extractor implements ratchet.DataProcessor
+// Extractor implements models.DataProcessor
 type Extractor struct{}
 
 // ProcessData implementation

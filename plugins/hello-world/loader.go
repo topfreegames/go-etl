@@ -7,7 +7,7 @@ import (
 	"github.com/topfreegames/go-etl/models"
 )
 
-// Loader implements ratchet.DataProcessor
+// Loader implements models.DataProcessor
 type Loader struct{}
 
 // ProcessData implementation

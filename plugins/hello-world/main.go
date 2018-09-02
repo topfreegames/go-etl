@@ -1,20 +1,20 @@
 package main
 
 import (
-	"github.com/dailyburn/ratchet"
+	"github.com/topfreegames/go-etl/models"
 )
 
 type etl string
 
-func (e etl) Extract() ratchet.DataProcessor {
+func (e etl) Extract() models.DataProcessor {
 	return &Extractor{}
 }
 
-func (e etl) Transform() ratchet.DataProcessor {
+func (e etl) Transform() models.DataProcessor {
 	return &Transformer{}
 }
 
-func (e etl) Load() ratchet.DataProcessor {
+func (e etl) Load() models.DataProcessor {
 	return &Loader{}
 }
 

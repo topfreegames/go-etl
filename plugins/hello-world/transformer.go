@@ -7,7 +7,7 @@ import (
 	"github.com/topfreegames/go-etl/models"
 )
 
-// Transformer implements ratchet.DataProcessor
+// Transformer implements models.DataProcessor
 type Transformer struct{}
 
 // ProcessData implementation
